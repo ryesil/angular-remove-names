@@ -1,0 +1,37 @@
+<div class="row">
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div id="user-data">
+        <div class="form-group  mt-3">
+            <label>User Name</label>
+            <input class="form-control"
+             type="text" 
+             #username
+             name="username"
+             ngModel />
+        </div>
+        <button class="btn btn-light mt-3">Suggest an Username</button>
+        <div class="form-group mt-3">
+            <label>Email</label>
+            <input class="form-control"
+             type="text"
+             id="email"
+              #email
+              ngModel
+              name="email" />
+        </div>
+    </div>
+    <div class="row mt-3 g-1">
+        <label class="my-1 mr-2 px-1 " for="secret">Secret Questions</label>
+        <select class="custom-select custom-select-lg"
+         id="secret"
+         #secret
+         ngModel
+         name="secret">
+            <option selected>Open this select menu</option>
+            <option value="pet">Your first Pet?</option>
+            <option value="teacher">Your first Teacher?</option>
+        </select>
+    </div>
+    <button class="btn btn-primary mt-3 px-4" type="submit">Submit</button>
+</form>
+</div>

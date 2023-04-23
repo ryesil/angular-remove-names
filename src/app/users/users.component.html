@@ -1,0 +1,16 @@
+<div class="container">
+    <h1>Active Users</h1>
+    <div class="row">
+      <ul class="list-group list-group-flush">
+        <app-active-users *ngFor="let user of activeUsers" [user]="user"></app-active-users>
+      </ul>
+       </div>
+  
+   <h1>Inactive Users</h1>
+   <div class="row">
+    <ul class="list-group list-group-flush">
+      <app-inactive-users *ngFor="let user of inactiveUsers" [user]="user"></app-inactive-users>
+    </ul>
+     </div>
+  
+  </div>
