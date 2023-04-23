@@ -1,5 +1,5 @@
 <div class="row">
-<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+<form (ngSubmit)="onSubmit()" #f="ngForm">
     <div id="user-data">
         <div class="form-group  mt-3">
             <label>User Name</label>
@@ -7,7 +7,8 @@
              type="text" 
              #username
              name="username"
-             ngModel />
+             ngModel
+             required>
         </div>
         <button class="btn btn-light mt-3">Suggest an Username</button>
         <div class="form-group mt-3">
@@ -15,23 +16,40 @@
             <input class="form-control"
              type="text"
              id="email"
-              #email
+              #email="ngModel"
               ngModel
-              name="email" />
+              name="email" 
+              required
+              email>
+              <span class="help-text" *ngIf="!email.valid && email.touched">Please enter a valid Email</span>
         </div>
+        
     </div>
     <div class="row mt-3 g-1">
         <label class="my-1 mr-2 px-1 " for="secret">Secret Questions</label>
         <select class="custom-select custom-select-lg"
          id="secret"
          #secret
-         ngModel
+         [ngModel]="'pet'"
          name="secret">
-            <option selected>Open this select menu</option>
+            <option >Open this select menu</option>
             <option value="pet">Your first Pet?</option>
             <option value="teacher">Your first Teacher?</option>
         </select>
+        <div class="form-group">
+            <textarea 
+            class="form-control"
+            name="questionAnswer"
+            rows="3"
+            [(ngModel)]="answer"
+            ></textarea>
+            <p>Your reply: {{answer}}</p>
+        </div>
     </div>
-    <button class="btn btn-primary mt-3 px-4" type="submit">Submit</button>
+    <button 
+    class="btn btn-primary mt-3 px-4" 
+    type="submit"
+    [disabled]="!f.valid"
+    >Submit</button>
 </form>
 </div>

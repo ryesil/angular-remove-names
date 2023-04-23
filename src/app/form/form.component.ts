@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+
 
 @Component({
   selector: 'app-form',
@@ -7,13 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormComponent implements OnInit {
 
+answer:string='';
+
+
+  @ViewChild('f')
+  signupForm:any
   constructor() { }
+
 
   ngOnInit(): void {
   }
 
-onSubmit(e:any){
-  console.log(e)
+onSubmit(){
+  console.log(this.signupForm)
+
 }
 
 
