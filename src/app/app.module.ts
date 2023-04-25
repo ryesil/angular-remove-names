@@ -10,12 +10,14 @@ import {Routes, RouterModule} from '@angular/router';
 import { FormComponent } from './form/form.component';
 import { UsersComponent } from './users/users.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { AssignmentComponent } from './assignment/assignment.component';
 
 
 const appRoutes:Routes=[
 {path:'', component:WelcomeComponent},
 {path:'form', component:FormComponent},
-{path:'users', component:UsersComponent}
+{path:'users', component:UsersComponent},
+{path:'assignment', component:AssignmentComponent}
 ]
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ const appRoutes:Routes=[
     FormComponent,
     UsersComponent,
     WelcomeComponent,
+    AssignmentComponent,
   ],
   imports: [
     BrowserModule,

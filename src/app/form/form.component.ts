@@ -8,12 +8,33 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 })
 export class FormComponent implements OnInit {
 
-answer:string='';
+suggestedUserName(){
+  const suggestedUserName = 'Superuser';
+  //update the form 1st way
+  // this.signupForm.setValue({
+  //   userData:{
+  //     username:suggestedUserName,
+  //     email:''
+  //   },
+  //   secret:'pet',
+  //   questionAnswer:'',
+  //   gender:'male'
+  // })
+  //update form 2nd way
+  this.signupForm.form.patchValue({
+    userData:{
+      username:suggestedUserName
+    }
+  })
+}
 
+answer:string='';
+genders = ['male', 'female'];
 
   @ViewChild('f')
   signupForm:any
   constructor() { }
+
 
 
   ngOnInit(): void {
@@ -21,7 +42,6 @@ answer:string='';
 
 onSubmit(){
   console.log(this.signupForm)
-
 }
 
 
