@@ -1,0 +1,41 @@
+<div class="container">
+    <form class="form-group" #f="ngForm" (ngSubmit)="onSubmitPost()">
+        <div>
+            <div class="row mt-4">
+                <label for="title" class="fw-bold fs-5">Title</label>
+                <input  class="form-control" type="text" name="title" #title ngModel required/>
+            </div>
+        </div>
+        <div>
+            <div class="row mt-4">
+                <label for="title" class="fw-bold fs-5">Content</label>
+                <textarea class="form-control" type="tex" name="content" #title ngModel required></textarea>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="column-2 ps-0"> <button type="submit" class="btn btn-primary" [disabled]="f.invalid" >Send Post</button></div>
+           
+        </div>
+        <hr>
+
+        <div class="row ">
+           <div class="col-2 ps-0"><button class="btn btn-primary" type="button" (click)="onClickFetch()">Fetch Posts</button></div>
+           <div class="col-2 ps-0"><button class="btn btn-danger" type="button" (click)="onClearPosts()">Clear Posts</button></div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-8">
+            <p *ngIf="loadedPosts.length < 1 && !isFetching">No Posts available!</p>
+           
+                <ul class="list-group" *ngIf="loadedPosts.length >= 1  && !isFetching">
+                    <li class="list-group-item" *ngFor="let post of loadedPosts; let i=index">
+                        <h3>{{post.title}}</h3>
+                       <p>{{post.content}}</p>
+                    </li>
+                </ul>
+                <div *ngIf="isFetching"><span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    <p >Loading...</p></div>
+        </div>
+    </div>
+</div>

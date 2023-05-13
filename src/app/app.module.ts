@@ -11,13 +11,16 @@ import { FormComponent } from './form/form.component';
 import { UsersComponent } from './users/users.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AssignmentComponent } from './assignment/assignment.component';
+import { PostComponent } from './post/post.component';
+import {HttpClientModule } from '@angular/common/http'
 
 
 const appRoutes:Routes=[
 {path:'', component:WelcomeComponent},
 {path:'form', component:FormComponent},
 {path:'users', component:UsersComponent},
-{path:'assignment', component:AssignmentComponent}
+{path:'assignment', component:AssignmentComponent},
+{path:'fire-base' ,component:PostComponent}
 ]
 @NgModule({
   declarations: [
@@ -28,11 +31,13 @@ const appRoutes:Routes=[
     UsersComponent,
     WelcomeComponent,
     AssignmentComponent,
+    PostComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [NamesProviderService],
   bootstrap: [AppComponent]
