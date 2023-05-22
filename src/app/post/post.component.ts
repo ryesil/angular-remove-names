@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {map} from 'rxjs'
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {Subscription, map} from 'rxjs'
 import { Post } from './post.module';
 import { PostService } from './post.service';
 
@@ -9,13 +9,17 @@ import { PostService } from './post.service';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit, OnDestroy {
 loadedPosts:Post[]=[];
 isFetching=false;
+error:any=null;
+private errorSubscription: Subscription
 
 onClearPosts(){
   this.postService.deletePosts().subscribe(()=>{
     this.loadedPosts=[];
+  }, err=>{
+this.error=err?.message;
   })
 }
 
@@ -30,14 +34,26 @@ onClickFetch(){
   this.postService.fetchPosts().subscribe(posts=>{
     this.isFetching = false;
     this.loadedPosts=posts;
-  })
+  },
+  error=>{
+    this.isFetching =false;
+    this.error = error.message;
+  }
+  )
 }
 
 ngOnInit(): void {
+  this.errorSubscription = this.postService.error.subscribe(errorMessage=>this.error=errorMessage);
   this.isFetching = true;
-  this.postService.fetchPosts().subscribe(posts=>{
-    this.isFetching = false;
-    this.loadedPosts=posts;
+  this.postService.fetchPosts().subscribe({
+    next:posts=>{
+      this.isFetching = false;
+      this.loadedPosts=posts;
+    },
+    error : err=>{
+      this.isFetching = false;
+      this.error=err?.error?.error;
+        }
   })
 }
 
@@ -45,5 +61,12 @@ ngOnInit(): void {
 constructor(private http:HttpClient, private postService:PostService){
 
 }
+  ngOnDestroy(): void {
+    this.errorSubscription.unsubscribe();
+  }
+
+  onHandleError(){
+    this.error=null;
+  }
 
 }

@@ -12,7 +12,9 @@ import { UsersComponent } from './users/users.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AssignmentComponent } from './assignment/assignment.component';
 import { PostComponent } from './post/post.component';
-import {HttpClientModule } from '@angular/common/http'
+import {HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
+import { AuthInterceptorService } from './post/auth-interceptor.service';
+import { LoggingInterceptorService } from './post/logging-interceptor.service';
 
 
 const appRoutes:Routes=[
@@ -39,7 +41,9 @@ const appRoutes:Routes=[
     FormsModule,
     HttpClientModule
   ],
-  providers: [NamesProviderService],
+  providers: [NamesProviderService,
+    {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptorService, multi:true},
+    {provide:HTTP_INTERCEPTORS, useClass:LoggingInterceptorService, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

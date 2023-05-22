@@ -34,8 +34,14 @@
                        <p>{{post.content}}</p>
                     </li>
                 </ul>
-                <div *ngIf="isFetching"><span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                    <p >Loading...</p></div>
+                <div *ngIf="isFetching && !error"><span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    <p>Loading...</p>
+                </div>
+                <div class="alert alert-danger" *ngIf="error">
+                    <h1>Error Occured!</h1>
+                    <p>{{error}}</p>
+                    <button class="btn btn-danger" (click)="onHandleError()">Okay</button>
+                </div>
         </div>
     </div>
 </div>
